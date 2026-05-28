@@ -35,7 +35,7 @@ ng build
 
 ## 🌐 Live Demo
 
-fascinating-blini-75acde.netlify.app
+https://fascinating-blini-75acde.netlify.app
 
 ## 👨‍💻 Author
 
