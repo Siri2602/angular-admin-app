@@ -1,0 +1,141 @@
+<div class="admin-page">
+  <div class="page-header">
+    <h1>👥 User Management</h1>
+    <div class="header-actions">
+      <button class="btn-add" (click)="toggleAddForm()">
+        {{ showAddForm ? '✕ Cancel' : '➕ Add User' }}
+      </button>
+      <button class="btn-reload" (click)="loadUsers()">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <!-- Delay control -->
+  <div class="delay-bar">
+    <label>API Delay (ms):</label>
+    <select [(ngModel)]="apiDelay" (change)="onDelayChange()">
+      <option [ngValue]="0">0 (instant)</option>
+      <option [ngValue]="1000">1000 (1s)</option>
+      <option [ngValue]="2000">2000 (2s)</option>
+      <option [ngValue]="3000">3000 (3s)</option>
+    </select>
+    <span class="load-time" *ngIf="loadDuration > 0">Loaded in {{ loadDuration }}ms</span>
+  </div>
+
+  <!-- Messages -->
+  <div class="msg success" *ngIf="successMessage">✅ {{ successMessage }}</div>
+  <div class="msg error" *ngIf="errorMessage">❌ {{ errorMessage }}</div>
+
+  <!-- Add User Form -->
+  <div class="add-form-card" *ngIf="showAddForm">
+    <h3>Add New User</h3>
+    <form [formGroup]="addForm" (ngSubmit)="addUser()" class="user-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>User ID</label>
+          <input formControlName="userId" placeholder="e.g. mike" />
+        </div>
+        <div class="form-field">
+          <label>Password</label>
+          <input formControlName="password" type="password" placeholder="min 3 chars" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Full Name</label>
+          <input formControlName="name" placeholder="e.g. Mike Johnson" />
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input formControlName="email" type="email" placeholder="e.g. mike@company.com" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Role</label>
+          <select formControlName="role">
+            <option value="General User">General User</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Department</label>
+          <input formControlName="department" placeholder="e.g. Engineering" />
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" [disabled]="addForm.invalid || isAdding">
+        {{ isAdding ? 'Adding...' : '➕ Add User' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-box" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading users<span *ngIf="apiDelay > 0"> (delay: {{ apiDelay }}ms)</span>...</p>
+  </div>
+
+  <!-- Users Table -->
+  <div class="table-wrapper" *ngIf="!isLoading">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" [class.editing]="editingUserId === user.id">
+          <!-- View mode -->
+          <ng-container *ngIf="editingUserId !== user.id">
+            <td>{{ user.id }}</td>
+            <td><code>{{ user.userId }}</code></td>
+            <td class="name-cell">{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td><span class="role-pill" [class.admin]="user.role === 'Admin'">{{ user.role }}</span></td>
+            <td>{{ user.department }}</td>
+            <td><span class="status-pill" [class.active]="user.status === 'Active'">{{ user.status }}</span></td>
+            <td>{{ user.joinDate }}</td>
+            <td class="actions">
+              <button class="btn-edit" (click)="startEdit(user)">✏️</button>
+              <button class="btn-delete" (click)="deleteUser(user)">🗑️</button>
+            </td>
+          </ng-container>
+
+          <!-- Edit mode -->
+          <ng-container *ngIf="editingUserId === user.id">
+            <td>{{ user.id }}</td>
+            <td><code>{{ user.userId }}</code></td>
+            <td><input [formControl]="$any(editForm.controls['name'])" class="edit-input" /></td>
+            <td><input [formControl]="$any(editForm.controls['email'])" class="edit-input" /></td>
+            <td>
+              <select [formControl]="$any(editForm.controls['role'])" class="edit-select">
+                <option value="General User">General User</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </td>
+            <td><input [formControl]="$any(editForm.controls['department'])" class="edit-input" /></td>
+            <td>
+              <select [formControl]="$any(editForm.controls['status'])" class="edit-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </td>
+            <td>{{ user.joinDate }}</td>
+            <td class="actions">
+              <button class="btn-save" (click)="saveEdit(user.id)" [disabled]="isUpdating">💾</button>
+              <button class="btn-cancel" (click)="cancelEdit()">✕</button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+    <p class="total-info">Total users: {{ users.length }}</p>
+  </div>
+</div>

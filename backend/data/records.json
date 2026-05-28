@@ -1,0 +1,15 @@
+[
+  { "id": 1, "title": "Q1 Sales Report", "category": "Report", "date": "2024-01-15", "status": "Completed", "accessLevel": "General User" },
+  { "id": 2, "title": "Marketing Campaign Plan", "category": "Plan", "date": "2024-02-20", "status": "In Progress", "accessLevel": "General User" },
+  { "id": 3, "title": "Product Roadmap 2024", "category": "Strategy", "date": "2024-03-10", "status": "Draft", "accessLevel": "General User" },
+  { "id": 4, "title": "Customer Feedback Analysis", "category": "Report", "date": "2024-04-05", "status": "Completed", "accessLevel": "General User" },
+  { "id": 5, "title": "Team Performance Review", "category": "HR", "date": "2024-05-15", "status": "Completed", "accessLevel": "General User" },
+  { "id": 6, "title": "Server Infrastructure Audit", "category": "Audit", "date": "2024-01-20", "status": "Completed", "accessLevel": "Admin" },
+  { "id": 7, "title": "Security Vulnerability Report", "category": "Security", "date": "2024-02-28", "status": "Critical", "accessLevel": "Admin" },
+  { "id": 8, "title": "Database Migration Plan", "category": "DevOps", "date": "2024-03-15", "status": "In Progress", "accessLevel": "Admin" },
+  { "id": 9, "title": "User Access Log Analysis", "category": "Audit", "date": "2024-04-10", "status": "Completed", "accessLevel": "Admin" },
+  { "id": 10, "title": "System Health Dashboard", "category": "Monitoring", "date": "2024-05-20", "status": "Active", "accessLevel": "Admin" },
+  { "id": 11, "title": "Annual Budget Forecast", "category": "Finance", "date": "2024-06-01", "status": "Pending", "accessLevel": "Admin" },
+  { "id": 12, "title": "API Rate Limit Configuration", "category": "DevOps", "date": "2024-06-15", "status": "Active", "accessLevel": "Admin" }
+]
+

@@ -1,0 +1,115 @@
+<div class="dashboard">
+  <!-- USER DETAILS SECTION -->
+  <section class="user-section">
+    <h2>👤 User Details</h2>
+    <div class="skeleton-card" *ngIf="isLoadingProfile">
+      <div class="skeleton-line w60"></div>
+      <div class="skeleton-line w40"></div>
+      <div class="skeleton-line w80"></div>
+    </div>
+    <div class="user-card" *ngIf="!isLoadingProfile && user">
+      <div class="user-avatar">
+        <span>{{ user.name.charAt(0) }}</span>
+      </div>
+      <div class="user-details">
+        <div class="detail-row">
+          <span class="label">Name</span>
+          <span class="value">{{ user.name }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">User ID</span>
+          <span class="value">{{ user.userId }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Email</span>
+          <span class="value">{{ user.email }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Role</span>
+          <span class="value badge" [class.admin]="user.role === 'Admin'">{{ user.role }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Department</span>
+          <span class="value">{{ user.department }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Joined</span>
+          <span class="value">{{ user.joinDate }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Status</span>
+          <span class="value status-pill" [class.active]="user.status === 'Active'">{{ user.status }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASYNC DELAY CONTROL -->
+  <section class="delay-section">
+    <h3>⏱️ Async Processing Demo</h3>
+    <p class="hint">Set an API delay to see async loading behavior. The records API will wait this many milliseconds before responding.</p>
+    <div class="delay-controls">
+      <label for="delay">API Delay (ms):</label>
+      <select id="delay" [(ngModel)]="recordsDelay" (change)="onDelayChange()">
+        <option [ngValue]="0">0 (instant)</option>
+        <option [ngValue]="1000">1000 (1s)</option>
+        <option [ngValue]="2000">2000 (2s)</option>
+        <option [ngValue]="3000">3000 (3s)</option>
+        <option [ngValue]="5000">5000 (5s)</option>
+      </select>
+      <button class="btn-reload" (click)="loadRecords()">🔄 Reload</button>
+    </div>
+    <div class="delay-info" *ngIf="loadDuration > 0">
+      Delay applied: <strong>{{ delayApplied }}ms</strong> |
+      Actual load time: <strong>{{ loadDuration }}ms</strong>
+    </div>
+  </section>
+
+  <!-- RECORDS TABLE -->
+  <section class="records-section">
+    <div class="section-head">
+      <h2>📋 Records ({{ totalRecords }})</h2>
+      <span class="role-badge" *ngIf="user">
+        Showing: {{ user.role === 'Admin' ? 'All Records (Admin)' : 'General User Records Only' }}
+      </span>
+    </div>
+
+    <!-- Loading skeleton -->
+    <div class="table-loading" *ngIf="isLoadingRecords">
+      <div class="spinner-large"></div>
+      <p>Loading records<span *ngIf="recordsDelay > 0"> (delay: {{ recordsDelay }}ms)</span>...</p>
+    </div>
+
+    <!-- Error -->
+    <div class="error-box" *ngIf="errorMessage && !isLoadingRecords">
+      ❌ {{ errorMessage }}
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="!isLoadingRecords && !errorMessage">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Access Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of records" class="fade-in">
+            <td>{{ record.id }}</td>
+            <td class="title-cell">{{ record.title }}</td>
+            <td><span class="cat-badge">{{ record.category }}</span></td>
+            <td>{{ record.date }}</td>
+            <td><span class="status-badge" [ngClass]="getStatusClass(record.status)">{{ record.status }}</span></td>
+            <td><span class="access-badge" [class.admin-access]="record.accessLevel === 'Admin'">{{ record.accessLevel }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-msg" *ngIf="records.length === 0">No records available for your access level.</p>
+    </div>
+  </section>
+</div>

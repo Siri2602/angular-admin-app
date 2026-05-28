@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "userId": "admin",
+    "password": "$2a$10$RvGyK47DBjO.aNkMSU903.8BSazoMfQ/YGnAFZ9r8fgLvieT880Pq",
+    "plainPassword": "admin123",
+    "name": "Admin User",
+    "email": "admin@company.com",
+    "role": "Admin",
+    "department": "Engineering",
+    "joinDate": "2023-01-15",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "userId": "john",
+    "password": "$2a$10$vaMV5vXlGNjYWv55JJ2dfeTiQD.4PIw/xtlmy1WaBXBll//cJ0rjy",
+    "plainPassword": "john123",
+    "name": "John Doe",
+    "email": "john@company.com",
+    "role": "General User",
+    "department": "Marketing",
+    "joinDate": "2023-06-20",
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "userId": "jane",
+    "password": "$2a$10$qAQSWfvyvh6mHu8DW./fLu06Eb8OxtuVx6FsP2sSS0MrUMhM1r/Kq",
+    "plainPassword": "jane123",
+    "name": "Jane Smith",
+    "email": "jane@company.com",
+    "role": "General User",
+    "department": "Design",
+    "joinDate": "2024-02-10",
+    "status": "Active"
+  },
+  {
+    "id": 4,
+    "userId": "bob",
+    "password": "$2a$10$9oLjxzc0t544vL2RhoKVSOIGAC./mXEYOhOtFbZBb8DGRwMCLJhUm",
+    "plainPassword": "bob123",
+    "name": "Bob Wilson",
+    "email": "bob@company.com",
+    "role": "General User",
+    "department": "Sales",
+    "joinDate": "2024-05-01",
+    "status": "Inactive"
+  }
+]
