@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/users';
+  private apiUrl = 'https://angular-admin-app.onrender.com/api/users';
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +23,6 @@ export class UserService {
   }
 
   registerUser(data: any): Observable<any> {
-    return this.http.post('http://localhost:3000/api/auth/register', data);
+    return this.http.post('https://angular-admin-app.onrender.com/api/auth/register', data);
   }
 }

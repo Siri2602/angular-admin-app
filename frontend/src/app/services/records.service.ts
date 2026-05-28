@@ -5,7 +5,7 @@ import { RecordsResponse } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecordsService {
-  private apiUrl = 'http://localhost:3000/api/records';
+  private apiUrl = 'https://angular-admin-app.onrender.com/api/records';
 
   constructor(private http: HttpClient) {}
 
